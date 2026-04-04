@@ -14,4 +14,20 @@ describe("getVisiblePosts", () => {
       { data: { draft: false, pubDate: new Date("2026-01-10") } },
     ]);
   });
+
+  it("hides debug posts unless explicitly enabled", () => {
+    const posts = [
+      { data: { debugOnly: true, draft: false, pubDate: new Date("2026-04-04") } },
+      { data: { draft: false, pubDate: new Date("2026-04-03") } },
+    ];
+
+    expect(getVisiblePosts(posts)).toEqual([
+      { data: { draft: false, pubDate: new Date("2026-04-03") } },
+    ]);
+
+    expect(getVisiblePosts(posts, { includeDebug: true })).toEqual([
+      { data: { debugOnly: true, draft: false, pubDate: new Date("2026-04-04") } },
+      { data: { draft: false, pubDate: new Date("2026-04-03") } },
+    ]);
+  });
 });

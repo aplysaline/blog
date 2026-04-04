@@ -3,7 +3,9 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getVisiblePosts } from "../lib/posts";
 
-const posts = getVisiblePosts(await getCollection("blog"));
+const posts = getVisiblePosts(await getCollection("blog"), {
+  includeDebug: import.meta.env.DEV,
+});
 
 const dateFormatter = new Intl.DateTimeFormat("en", {
   day: "numeric",
@@ -29,6 +31,12 @@ const baseUrl = import.meta.env.BASE_URL.endsWith("/")
           <time datetime={post.data.pubDate.toISOString()}>
             {dateFormatter.format(post.data.pubDate)}
           </time>
+          {post.data.debugOnly && (
+            <>
+              <span aria-hidden="true"> · </span>
+              <span>Debug</span>
+            </>
+          )}
         </p>
         <h2>
           <a href={`${baseUrl}posts/${post.data.slug}/`}>{post.data.title}</a>
