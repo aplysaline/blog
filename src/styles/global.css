@@ -137,30 +137,26 @@ li {
 
 .post-list {
   display: grid;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .post-card {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0)),
-    var(--surface);
+  background: rgba(21, 28, 36, 0.52);
   border: 1px solid var(--border);
-  border-radius: 1rem;
-  box-shadow: var(--shadow);
-  padding: 1.4rem 1.4rem 1.25rem;
+  border-radius: 0.85rem;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.16);
+  padding: 1.15rem 1.2rem 1.05rem;
 }
 
 .post-card:hover {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0)),
-    var(--surface-strong);
-  border-color: var(--border-strong);
-  transform: translateY(-2px);
+  background: rgba(27, 36, 48, 0.62);
+  border-color: rgba(182, 122, 152, 0.24);
+  transform: translateY(-1px);
 }
 
 .post-card h2 {
-  font-size: 2rem;
-  margin-bottom: 0.65rem;
+  font-size: clamp(1.7rem, 4vw, 2rem);
+  margin-bottom: 0.45rem;
 }
 
 .post-card a {
@@ -177,23 +173,35 @@ li {
 .post-card > p:last-child {
   color: var(--muted);
   margin-bottom: 0;
+  max-width: 34rem;
 }
 
 .post-header {
-  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.6rem;
+  padding-bottom: 1.4rem;
 }
 
 .post-body {
   font-family: var(--font-body);
+  line-height: 1.72;
 }
 
 .post-body > :first-child {
   margin-top: 0;
 }
 
+.post-body > :last-child {
+  margin-bottom: 0;
+}
+
 .post-body p,
 .post-body li {
   font-size: 1.28rem;
+}
+
+.post-body > * {
+  margin: 1.15rem 0 0;
 }
 
 .post-body a {
@@ -211,8 +219,47 @@ li {
   color: var(--text);
 }
 
-.post-body :is(h2, h3, h4, h5, h6) {
-  margin: 2.25rem 0 0.8rem;
+.post-body :is(h1, h2, h3, h4, h5, h6) {
+  scroll-margin-top: 1.5rem;
+  text-wrap: balance;
+}
+
+.post-body h1 {
+  font-size: clamp(2.05rem, 5vw, 3rem);
+  margin-top: 2.8rem;
+}
+
+.post-body h2 {
+  font-size: clamp(1.7rem, 3.5vw, 2.3rem);
+  margin-top: 2.5rem;
+}
+
+.post-body h3 {
+  font-size: clamp(1.42rem, 2.8vw, 1.82rem);
+  margin-top: 2.2rem;
+}
+
+.post-body h4,
+.post-body h5,
+.post-body h6 {
+  margin-top: 1.9rem;
+}
+
+.post-body :is(h1, h2, h3, h4, h5, h6) + :is(p, ul, ol, blockquote, pre, table) {
+  margin-top: 0.75rem;
+}
+
+.post-body ul,
+.post-body ol {
+  padding-left: 1.5rem;
+}
+
+.post-body li + li {
+  margin-top: 0.45rem;
+}
+
+.post-body li::marker {
+  color: var(--accent-cool);
 }
 
 .post-body :not(pre) > code {
@@ -228,12 +275,15 @@ li {
 }
 
 .post-body pre {
-  background: rgba(9, 12, 18, 0.92);
-  border: 1px solid var(--border);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0)),
+    rgba(9, 12, 18, 0.94);
+  border: 1px solid var(--border-strong);
   border-radius: 1rem;
-  margin: 1.5rem 0;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.22);
+  margin: 1.7rem 0;
   overflow-x: auto;
-  padding: 1rem 1.1rem;
+  padding: 1.1rem 1.15rem;
 }
 
 .post-body pre code {
@@ -246,42 +296,71 @@ li {
 }
 
 .post-body blockquote {
-  border-left: 3px solid var(--accent-cool);
-  color: var(--muted);
+  background: linear-gradient(135deg, rgba(143, 184, 183, 0.1), rgba(143, 184, 183, 0.03));
+  border: 1px solid rgba(143, 184, 183, 0.18);
+  border-left: 4px solid var(--accent-cool);
+  border-radius: 0.9rem;
+  color: color-mix(in srgb, var(--text) 76%, var(--muted));
   margin: 1.75rem 0;
-  padding: 0.1rem 0 0.1rem 1rem;
+  padding: 0.9rem 1.05rem 0.9rem 1rem;
+}
+
+.post-body blockquote > :first-child {
+  margin-top: 0;
+}
+
+.post-body blockquote > :last-child {
+  margin-bottom: 0;
 }
 
 .post-body hr {
   border: 0;
   border-top: 1px solid var(--border);
-  margin: 2rem 0;
+  margin: 2.35rem 0;
 }
 
 .post-body table {
-  border-collapse: collapse;
-  margin: 1.5rem 0;
+  background: rgba(21, 28, 36, 0.66);
+  border: 1px solid var(--border);
+  border-radius: 0.9rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  display: block;
+  margin: 1.7rem 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
   width: 100%;
 }
 
 .post-body th,
 .post-body td {
   border-bottom: 1px solid var(--border);
-  padding: 0.75rem 0.85rem;
+  padding: 0.8rem 0.95rem;
   text-align: left;
   vertical-align: top;
 }
 
 .post-body th {
+  background: rgba(255, 255, 255, 0.03);
   color: var(--text);
   font-family: var(--font-heading);
   font-size: 1rem;
   font-weight: 600;
 }
 
+.post-body tr:last-child td {
+  border-bottom: 0;
+}
+
+.post-body td {
+  color: color-mix(in srgb, var(--text) 86%, var(--muted));
+}
+
 .post-body img {
   border: 1px solid var(--border);
   border-radius: 1rem;
+  box-shadow: var(--shadow);
   display: block;
   height: auto;
   margin: 1.5rem 0;
@@ -298,6 +377,40 @@ li {
   .post-body p,
   .post-body li {
     font-size: 1.1rem;
+  }
+
+  .post-header {
+    margin-bottom: 2.1rem;
+    padding-bottom: 1.1rem;
+  }
+
+  .post-body {
+    line-height: 1.68;
+  }
+
+  .post-body > * {
+    margin-top: 1rem;
+  }
+
+  .post-body ul,
+  .post-body ol {
+    padding-left: 1.25rem;
+  }
+
+  .post-body table {
+    font-size: 0.98rem;
+    min-width: 32rem;
+  }
+
+  .post-body th,
+  .post-body td {
+    padding: 0.72rem 0.8rem;
+  }
+
+  .post-body pre {
+    border-radius: 0.85rem;
+    margin: 1.45rem 0;
+    padding: 0.95rem 1rem;
   }
 
   .post-card {
