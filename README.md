@@ -3,6 +3,7 @@
 Minimal Astro blog boilerplate with markdown posts compiled as a static site.
 
 This repository uses Bun only. Dependency installs and project scripts should be run with Bun, not npm, pnpm, or Yarn.
+Astro 6 in this repo also requires Node.js `>=22.12.0` anywhere Bun invokes Astro tooling, including GitHub Actions.
 
 Posts live in `src/data/blog/` and are loaded into an Astro content collection at build time.
 
