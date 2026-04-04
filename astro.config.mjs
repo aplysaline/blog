@@ -8,6 +8,9 @@ const isUserOrOrgPagesRepo =
 
 export default defineConfig({
   output: "static",
+  prefetch: {
+    prefetchAll: true,
+  },
   site: isPagesBuild
     ? isUserOrOrgPagesRepo
       ? `https://${repo}`
