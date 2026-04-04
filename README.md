@@ -27,6 +27,8 @@ The repo is set up to make this explicit in three places:
 
 ## GitHub Pages deployment
 
+Live site: `https://aplysaline.github.io/blog/`
+
 This repo includes a GitHub Actions workflow at `.github/workflows/deploy.yml` that:
 
 - installs dependencies with Bun
