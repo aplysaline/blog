@@ -1,0 +1,236 @@
+:root {
+  --background: #0c1016;
+  --background-deep: #090c12;
+  --surface: #151c24;
+  --surface-strong: #1b2430;
+  --border: rgba(182, 122, 152, 0.18);
+  --border-strong: rgba(182, 122, 152, 0.34);
+  --text: #f4ecde;
+  --muted: #b8ac99;
+  --accent: #b67a98;
+  --accent-strong: #cf9bb4;
+  --accent-cool: #8fb8b7;
+  --shadow: 0 22px 60px rgba(0, 0, 0, 0.28);
+  --font-heading: "Fraunces", Georgia, serif;
+  --font-body: "Newsreader", "Iowan Old Style", "Palatino Linotype", serif;
+  --max-width: 44rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--background);
+  color: var(--text);
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(143, 184, 183, 0.14), transparent 30rem),
+    radial-gradient(circle at top right, rgba(182, 122, 152, 0.16), transparent 26rem),
+    linear-gradient(180deg, #121923 0%, var(--background) 42%, var(--background-deep) 100%);
+  font-family: var(--font-body);
+  line-height: 1.65;
+}
+
+a {
+  color: inherit;
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 0.25rem;
+}
+
+::selection {
+  background: rgba(182, 122, 152, 0.32);
+  color: var(--text);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0;
+}
+
+p,
+li {
+  font-size: 1.2rem;
+}
+
+.shell {
+  margin: 0 auto;
+  max-width: calc(var(--max-width) + 3rem);
+  padding: 1.5rem;
+  position: relative;
+}
+
+.site-header {
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3rem;
+  padding: 0.25rem 0 1rem;
+}
+
+.site-title {
+  color: var(--text);
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.site-title:hover {
+  color: var(--accent-strong);
+}
+
+.hero,
+.post,
+.post-card {
+  max-width: var(--max-width);
+}
+
+.hero {
+  margin-bottom: 3rem;
+}
+
+.hero h1,
+.post h1 {
+  font-size: clamp(2.6rem, 8vw, 4.6rem);
+}
+
+.hero-copy,
+.lede {
+  color: var(--muted);
+  font-size: 1.35rem;
+  margin: 1rem 0 0;
+}
+
+.hero-copy i {
+  color: var(--accent-strong);
+}
+
+.eyebrow,
+.meta {
+  color: var(--muted);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.75rem;
+  text-transform: uppercase;
+}
+
+.post-list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.post-card {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0)),
+    var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+  padding: 1.4rem 1.4rem 1.25rem;
+}
+
+.post-card:hover {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0)),
+    var(--surface-strong);
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+}
+
+.post-card h2 {
+  font-size: 2rem;
+  margin-bottom: 0.65rem;
+}
+
+.post-card a {
+  color: var(--text);
+  text-decoration: none;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+}
+
+.post-card a:hover {
+  color: var(--accent-strong);
+}
+
+.post-card > p:last-child {
+  color: var(--muted);
+  margin-bottom: 0;
+}
+
+.post-header {
+  margin-bottom: 2rem;
+}
+
+.post-body {
+  font-family: var(--font-body);
+}
+
+.post-body > :first-child {
+  margin-top: 0;
+}
+
+.post-body p,
+.post-body li {
+  font-size: 1.28rem;
+}
+
+.post-body a {
+  color: var(--accent);
+  text-decoration-color: rgba(182, 122, 152, 0.48);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+}
+
+.post-body a:hover {
+  color: var(--accent-strong);
+}
+
+.post-body strong {
+  color: var(--text);
+}
+
+.post-body blockquote {
+  border-left: 3px solid var(--accent-cool);
+  color: var(--muted);
+  margin: 1.75rem 0;
+  padding: 0.1rem 0 0.1rem 1rem;
+}
+
+@media (max-width: 640px) {
+  .shell {
+    padding: 1.1rem;
+  }
+
+  p,
+  li,
+  .post-body p,
+  .post-body li {
+    font-size: 1.1rem;
+  }
+
+  .post-card {
+    padding: 1.15rem;
+  }
+}
