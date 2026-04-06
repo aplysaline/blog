@@ -1,50 +1,38 @@
 ---
 import { getCollection } from "astro:content";
-import TagList from "../components/TagList.astro";
+import PostFeed from "../components/PostFeed.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getVisiblePosts } from "../lib/posts";
+import { SITE_NAME } from "../lib/site";
 
 const posts = getVisiblePosts(await getCollection("blog"), {
   includeDebug: import.meta.env.DEV,
 });
-
-const dateFormatter = new Intl.DateTimeFormat("en", {
-  day: "numeric",
-  month: "short",
-  year: "numeric",
-});
-const baseUrl = import.meta.env.BASE_URL.endsWith("/")
-  ? import.meta.env.BASE_URL
-  : `${import.meta.env.BASE_URL}/`;
 ---
 
-<BaseLayout title="aplysaline" description="A minimal Astro blog boilerplate.">
+<BaseLayout title={SITE_NAME} description="A minimal Astro blog boilerplate.">
   <section class="hero">
     <p class="hero-copy">
       Welcome to my blog about neuroscience, physics and <i>the world</i>.
     </p>
   </section>
 
-  <section aria-label="Posts" class="post-list">
-    {posts.map((post) => (
-      <article class="post-card">
-        <p class="meta">
-          <time datetime={post.data.pubDate.toISOString()}>
-            {dateFormatter.format(post.data.pubDate)}
-          </time>
-          {post.data.debugOnly && (
-            <>
-              <span aria-hidden="true"> · </span>
-              <span>Debug</span>
-            </>
-          )}
-        </p>
-        <h2>
-          <a href={`${baseUrl}posts/${post.data.slug}/`}>{post.data.title}</a>
-        </h2>
-        <p>{post.data.description}</p>
-        <TagList tags={post.data.tags} />
-      </article>
-    ))}
-  </section>
+  <PostFeed ariaLabel="Posts" posts={posts} />
 </BaseLayout>
+
+<style>
+  .hero {
+    margin-bottom: 3rem;
+    max-width: var(--max-width);
+  }
+
+  .hero-copy {
+    color: var(--muted);
+    font-size: 1.35rem;
+    margin: 1rem 0 0;
+  }
+
+  .hero-copy i {
+    color: var(--accent-strong);
+  }
+</style>

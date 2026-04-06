@@ -1,0 +1,99 @@
+---
+import type { CollectionEntry } from "astro:content";
+import TagList from "./TagList.astro";
+import { withBasePath } from "../lib/site";
+
+interface Props {
+  ariaLabel: string;
+  posts: CollectionEntry<"blog">[];
+}
+
+const { ariaLabel, posts }: Props = Astro.props;
+
+const dateFormatter = new Intl.DateTimeFormat("en", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+});
+---
+
+<section aria-label={ariaLabel} class="post-list">
+  {posts.map((post) => (
+    <article class="post-card">
+      <p class="meta">
+        <time datetime={post.data.pubDate.toISOString()}>
+          {dateFormatter.format(post.data.pubDate)}
+        </time>
+        {post.data.debugOnly && (
+          <>
+            <span aria-hidden="true"> · </span>
+            <span>Debug</span>
+          </>
+        )}
+      </p>
+      <h2 class="title">
+        <a href={withBasePath(`posts/${post.data.slug}/`)}>{post.data.title}</a>
+      </h2>
+      <p class="description">{post.data.description}</p>
+      <TagList tags={post.data.tags} />
+    </article>
+  ))}
+</section>
+
+<style>
+  .post-list {
+    display: grid;
+    gap: 1rem;
+    max-width: var(--max-width);
+  }
+
+  .post-card {
+    background: rgba(21, 28, 36, 0.52);
+    border: 1px solid var(--border);
+    border-radius: 0.85rem;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.16);
+    padding: 1.15rem 1.2rem 1.05rem;
+  }
+
+  .post-card:hover {
+    background: rgba(27, 36, 48, 0.62);
+    border-color: rgba(182, 122, 152, 0.24);
+    transform: translateY(-1px);
+  }
+
+  .meta {
+    color: var(--muted);
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    margin: 0 0 0.75rem;
+    text-transform: uppercase;
+  }
+
+  .title {
+    font-size: clamp(1.7rem, 4vw, 2rem);
+    margin-bottom: 0.45rem;
+  }
+
+  .title a {
+    color: var(--text);
+    text-decoration: none;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.16em;
+  }
+
+  .title a:hover {
+    color: var(--accent-strong);
+  }
+
+  .description {
+    color: var(--muted);
+    margin: 0 0 0.9rem;
+    max-width: 34rem;
+  }
+
+  @media (max-width: 640px) {
+    .post-card {
+      padding: 1.15rem;
+    }
+  }
+</style>

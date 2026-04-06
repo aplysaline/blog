@@ -1,14 +1,12 @@
 ---
 import { getTagSlug } from "../lib/posts";
+import { withBasePath } from "../lib/site";
 
 interface Props {
   tags: string[];
 }
 
-const { tags } = Astro.props;
-const baseUrl = import.meta.env.BASE_URL.endsWith("/")
-  ? import.meta.env.BASE_URL
-  : `${import.meta.env.BASE_URL}/`;
+const { tags }: Props = Astro.props;
 ---
 
 {
@@ -16,7 +14,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith("/")
     <ul class="tag-list" aria-label="Tags">
       {tags.map((tag) => (
         <li>
-          <a class="tag-pill" href={`${baseUrl}tags/${getTagSlug(tag)}/`}>
+          <a class="tag-pill" href={withBasePath(`tags/${getTagSlug(tag)}/`)}>
             {tag}
           </a>
         </li>
@@ -24,3 +22,41 @@ const baseUrl = import.meta.env.BASE_URL.endsWith("/")
     </ul>
   )
 }
+
+<style>
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .tag-list li {
+    align-items: center;
+    display: inline-flex;
+  }
+
+  .tag-list li + li::before {
+    color: var(--muted);
+    content: "●";
+    font-size: 0.55rem;
+    margin-right: 0.55rem;
+    opacity: 0.75;
+  }
+
+  .tag-pill {
+    color: var(--muted);
+    display: inline-block;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    padding: 0;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .tag-pill:hover {
+    color: var(--text);
+  }
+</style>

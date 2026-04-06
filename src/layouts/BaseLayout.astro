@@ -1,18 +1,13 @@
 ---
 import "../styles/global.css";
+import { DEFAULT_SITE_DESCRIPTION, SITE_NAME, withBasePath } from "../lib/site";
 
 interface Props {
   description?: string;
   title?: string;
 }
 
-const {
-  description = "A small, static Astro blog.",
-  title = "aplysaline",
-} = Astro.props;
-const baseUrl = import.meta.env.BASE_URL.endsWith("/")
-  ? import.meta.env.BASE_URL
-  : `${import.meta.env.BASE_URL}/`;
+const { description = DEFAULT_SITE_DESCRIPTION, title = SITE_NAME }: Props = Astro.props;
 ---
 
 <!doctype html>
@@ -23,7 +18,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith("/")
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark" />
     <meta name="theme-color" content="#0c1016" />
-    <link rel="icon" href={`${baseUrl}favicon.svg`} type="image/svg+xml" />
+    <link rel="icon" href={withBasePath("favicon.svg")} type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -35,7 +30,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith("/")
   <body>
     <div class="shell">
       <header class="site-header">
-        <a class="site-title" href={baseUrl}>aplysaline</a>
+        <a class="site-title" href={withBasePath()}>{SITE_NAME}</a>
       </header>
       <main>
         <slot />
@@ -43,3 +38,37 @@ const baseUrl = import.meta.env.BASE_URL.endsWith("/")
     </div>
   </body>
 </html>
+
+<style>
+  .shell {
+    margin: 0 auto;
+    max-width: calc(var(--max-width) + 3rem);
+    padding: 1.5rem;
+    position: relative;
+  }
+
+  .site-header {
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 3rem;
+    padding: 0.25rem 0 1rem;
+  }
+
+  .site-title {
+    color: var(--text);
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+  }
+
+  .site-title:hover {
+    color: var(--accent-strong);
+  }
+
+  @media (max-width: 640px) {
+    .shell {
+      padding: 1.1rem;
+    }
+  }
+</style>

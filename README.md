@@ -15,9 +15,13 @@ Posts live in `src/data/blog/` and are loaded into an Astro content collection a
 - `bun run serve:dist`
 - `bun run preview`
 - `bun run check`
+- `bun run lint`
 - `bun run test`
+- `bun run feedback`
 
 Use `bun run serve:dist` after building if you want to test the generated `dist/` output locally without running Astro's dev server. This uses a small Bun-native static server in `scripts/serve-dist.ts`, so it stays Bun-only and does not rely on an extra package.
+
+`bun run feedback` runs typechecking, building, linting, and tests in parallel, then prints a single timing summary when everything passes. If something fails, it prints a compact summary plus the focused diagnostics for the failing task(s) only.
 
 The repo is set up to make this explicit in three places:
 
@@ -33,6 +37,7 @@ This repo includes a GitHub Actions workflow at `.github/workflows/deploy.yml` t
 
 - installs dependencies with Bun
 - runs `bun run check`
+- runs `bun run lint`
 - runs `bun run test`
 - builds the static site
 - deploys the generated `dist/` directory to GitHub Pages
