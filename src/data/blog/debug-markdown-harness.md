@@ -2,6 +2,9 @@
 slug: debug-markdown-harness
 title: Debug Markdown Harness
 description: A dev-only post for checking the visual treatment of common markdown elements.
+tags:
+  - quantum mechanics
+  - physics
 pubDate: 2026-04-04
 debugOnly: true
 ---

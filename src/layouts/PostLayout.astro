@@ -1,14 +1,16 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
+import TagList from "../components/TagList.astro";
 
 interface Props {
   description: string;
   pubDate: Date;
+  tags: string[];
   title: string;
   updatedDate?: Date;
 }
 
-const { description, pubDate, title, updatedDate } = Astro.props;
+const { description, pubDate, tags, title, updatedDate } = Astro.props;
 
 const dateFormatter = new Intl.DateTimeFormat("en", {
   day: "numeric",
@@ -20,6 +22,7 @@ const dateFormatter = new Intl.DateTimeFormat("en", {
 <BaseLayout title={`${title} | aplysaline`} description={description}>
   <article class="post">
     <header class="post-header">
+      <TagList tags={tags} />
       <h1>{title}</h1>
       <p class="lede">{description}</p>
       <p class="meta">

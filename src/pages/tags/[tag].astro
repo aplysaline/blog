@@ -1,0 +1,70 @@
+---
+import { getCollection } from "astro:content";
+import TagList from "../../components/TagList.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getAllTags, getPostsByTag, getVisiblePosts } from "../../lib/posts";
+
+function toTitleCase(value: string) {
+  return value.replace(/\b\p{L}/gu, (letter) => letter.toUpperCase());
+}
+
+export async function getStaticPaths() {
+  const posts = getVisiblePosts(await getCollection("blog"), {
+    includeDebug: import.meta.env.DEV,
+  });
+
+  return getAllTags(posts).map((tag) => ({
+    params: { tag: tag.slug },
+    props: {
+      label: tag.label,
+      posts: getPostsByTag(posts, tag.slug),
+    },
+  }));
+}
+
+interface Props {
+  label: string;
+  posts: Awaited<ReturnType<typeof getCollection<"blog">>>;
+}
+
+const { label, posts } = Astro.props;
+const heading = toTitleCase(label);
+
+const dateFormatter = new Intl.DateTimeFormat("en", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+});
+const baseUrl = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+---
+
+<BaseLayout title={`${heading} | aplysaline`} description={`Posts tagged ${label}.`}>
+  <section class="hero">
+    <h1>{heading}</h1>
+  </section>
+
+  <section aria-label={`Posts tagged ${heading}`} class="post-list">
+    {posts.map((post) => (
+      <article class="post-card">
+        <p class="meta">
+          <time datetime={post.data.pubDate.toISOString()}>
+            {dateFormatter.format(post.data.pubDate)}
+          </time>
+          {post.data.debugOnly && (
+            <>
+              <span aria-hidden="true"> · </span>
+              <span>Debug</span>
+            </>
+          )}
+        </p>
+        <h2>
+          <a href={`${baseUrl}posts/${post.data.slug}/`}>{post.data.title}</a>
+        </h2>
+        <p>{post.data.description}</p>
+        <TagList tags={post.data.tags} />
+      </article>
+    ))}
+  </section>
+</BaseLayout>

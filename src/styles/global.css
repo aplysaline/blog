@@ -172,14 +172,58 @@ li {
 
 .post-card > p:last-child {
   color: var(--muted);
-  margin-bottom: 0;
+  margin-bottom: 0.9rem;
   max-width: 34rem;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tag-list li {
+  align-items: center;
+  display: inline-flex;
+}
+
+.tag-list li + li::before {
+  color: var(--muted);
+  content: "●";
+  font-size: 0.55rem;
+  margin-right: 0.55rem;
+  opacity: 0.75;
+}
+
+.tag-pill {
+  color: var(--muted);
+  display: inline-block;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  padding: 0;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.tag-pill:hover {
+  color: var(--text);
+}
+
+.post-card .tag-pill {
+  color: var(--muted);
 }
 
 .post-header {
   border-bottom: 1px solid var(--border);
   margin-bottom: 2.6rem;
   padding-bottom: 1.4rem;
+}
+
+.post-header .tag-list {
+  margin-bottom: 1rem;
 }
 
 .post-body {

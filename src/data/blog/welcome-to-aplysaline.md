@@ -2,6 +2,9 @@
 slug: welcome-to-aplysaline
 title: Welcome to aplysaline
 description: A first post for the smallest possible version of the blog.
+tags:
+  - neuroscience
+  - physics
 pubDate: 2026-04-04
 ---
 

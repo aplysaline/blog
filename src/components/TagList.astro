@@ -1,0 +1,26 @@
+---
+import { getTagSlug } from "../lib/posts";
+
+interface Props {
+  tags: string[];
+}
+
+const { tags } = Astro.props;
+const baseUrl = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+---
+
+{
+  tags.length > 0 && (
+    <ul class="tag-list" aria-label="Tags">
+      {tags.map((tag) => (
+        <li>
+          <a class="tag-pill" href={`${baseUrl}tags/${getTagSlug(tag)}/`}>
+            {tag}
+          </a>
+        </li>
+      ))}
+    </ul>
+  )
+}

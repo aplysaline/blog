@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getVisiblePosts } from "../src/lib/posts";
+import { getAllTags, getPostsByTag, getVisiblePosts } from "../src/lib/posts";
 
 describe("getVisiblePosts", () => {
   it("filters drafts and sorts newest first", () => {
@@ -29,5 +29,31 @@ describe("getVisiblePosts", () => {
       { data: { debugOnly: true, draft: false, pubDate: new Date("2026-04-04") } },
       { data: { draft: false, pubDate: new Date("2026-04-03") } },
     ]);
+  });
+
+  it("collects unique tags into stable slugs", () => {
+    const posts = [
+      { data: { draft: false, pubDate: new Date("2026-01-10"), tags: ["Physics", "Investing"] } },
+      { data: { draft: false, pubDate: new Date("2026-02-15"), tags: ["quantum mechanics", "physics"] } },
+    ];
+
+    expect(getAllTags(posts)).toEqual([
+      { label: "investing", slug: "investing" },
+      { label: "physics", slug: "physics" },
+      { label: "quantum mechanics", slug: "quantum-mechanics" },
+    ]);
+  });
+
+  it("filters posts by a tag slug", () => {
+    const olderPost = {
+      data: { draft: false, pubDate: new Date("2026-01-10"), tags: ["physics"] },
+    };
+    const newerPost = {
+      data: { draft: false, pubDate: new Date("2026-02-15"), tags: ["quantum mechanics"] },
+    };
+    const posts = [olderPost, newerPost];
+
+    expect(getPostsByTag(posts, "physics")).toEqual([olderPost]);
+    expect(getPostsByTag(posts, "quantum-mechanics")).toEqual([newerPost]);
   });
 });

@@ -2,6 +2,8 @@
 slug: keeping-it-light
 title: Keeping it light
 description: Why a clean static setup makes room for the writing.
+tags:
+  - investing
 pubDate: 2026-03-28
 ---
 
