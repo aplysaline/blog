@@ -9,16 +9,20 @@ type PostLike = {
 
 interface VisiblePostsOptions {
   includeDebug?: boolean;
+  includeDrafts?: boolean;
 }
 
 export function getVisiblePosts<T extends PostLike>(
   posts: T[],
   options: VisiblePostsOptions = {},
 ) {
-  const { includeDebug = false } = options;
+  const { includeDebug = false, includeDrafts = false } = options;
 
   return posts
-    .filter((post) => !post.data.draft && (includeDebug || !post.data.debugOnly))
+    .filter(
+      (post) =>
+        (includeDrafts || !post.data.draft) && (includeDebug || !post.data.debugOnly),
+    )
     .sort((left, right) => right.data.pubDate.valueOf() - left.data.pubDate.valueOf());
 }
 

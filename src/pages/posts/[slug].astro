@@ -1,11 +1,14 @@
 ---
 import { type CollectionEntry, getCollection, render } from "astro:content";
+import { isEnabledEnvFlag } from "../../lib/env";
 import PostLayout from "../../layouts/PostLayout.astro";
 import { getVisiblePosts } from "../../lib/posts";
 
 export async function getStaticPaths() {
+  const includeDrafts = import.meta.env.DEV && isEnabledEnvFlag(process.env.DRAFT);
   const posts = getVisiblePosts(await getCollection("blog"), {
     includeDebug: import.meta.env.DEV,
+    includeDrafts,
   });
 
   return posts.map((post) => ({

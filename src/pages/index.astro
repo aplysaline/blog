@@ -1,12 +1,15 @@
 ---
 import { getCollection } from "astro:content";
 import PostFeed from "../components/PostFeed.astro";
+import { isEnabledEnvFlag } from "../lib/env";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getVisiblePosts } from "../lib/posts";
 import { SITE_NAME } from "../lib/site";
 
+const includeDrafts = import.meta.env.DEV && isEnabledEnvFlag(process.env.DRAFT);
 const posts = getVisiblePosts(await getCollection("blog"), {
   includeDebug: import.meta.env.DEV,
+  includeDrafts,
 });
 ---
 

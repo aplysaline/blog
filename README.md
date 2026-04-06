@@ -7,6 +7,12 @@ Astro 6 in this repo also requires Node.js `>=22.12.0` anywhere Bun invokes Astr
 
 Posts live in `src/data/blog/` and are loaded into an Astro content collection at build time.
 
+Draft posts stay hidden by default. To preview them locally while keeping production builds unchanged, run:
+
+`DRAFT=true bun run dev`
+
+Any `DRAFT` value is treated as enabled except empty, `0`, `false`, and `none`, so `DRAFT=1 bun run dev` works too. The flag is only honored in Astro's local dev mode, so `bun run build`, `bun run preview`, and deployed production output still exclude posts with `draft: true`.
+
 ## Bun workflow
 
 - `bun install`
